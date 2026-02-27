@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Memorization Techniques - ENG111</title>
+
+<style>
+/* CSS Variables for Themes */
+:root {
+    --bg-color: #f5f7fa;
+    --card-bg: #ffffff;
+    --text-color: #2d3748;
+    --text-secondary: #4a5568;
+    --heading-color: #1a202c;
+    --border-color: #e2e8f0;
+    --shadow: 0 4px 12px rgba(0,0,0,0.08);
+    --accent: #4a90d9;
+    --highlight: #fef3c7;
+    --highlight-text: #92400e;
+    --success: #d1fae5;
+    --success-text: #065f46;
+}
+
+[data-theme="dark"] {
+    --bg-color: #1a1a2e;
+    --card-bg: #252542;
+    --text-color: #e2e8f0;
+    --text-secondary: #a0aec0;
+    --heading-color: #f7fafc;
+    --border-color: #3d3d5c;
+    --shadow: 0 4px 12px rgba(0,0,0,0.3);
+    --accent: #63b3ed;
+    --highlight: #78350f;
+    --highlight-text: #fef3c7;
+    --success: #064e3b;
+    --success-text: #d1fae5;
+}
+
+[data-theme="sepia"] {
+    --bg-color: #f4ecd8;
+    --card-bg: #faf6eb;
+    --text-color: #5c4b37;
+    --text-secondary: #6b5a47;
+    --heading-color: #3d2e1f;
+    --border-color: #d9ceb8;
+    --shadow: 0 4px 12px rgba(92,75,55,0.12);
+    --accent: #8b6914;
+    --highlight: #fef3c7;
+    --highlight-text: #92400e;
+    --success: #d1fae5;
+    --success-text: #065f46;
+}
+
+* {
+    box-sizing: border-box;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body {
+    margin: 0;
+    padding: 16px;
+    padding-top: 70px;
+    font-family: Georgia, 'Times New Roman', serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.8;
+    font-size: 16px;
+}
+
+.container {
+    max-width: 760px;
+    margin: auto;
+}
+
+/* Controls */
+.controls {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--border-color);
+    padding: 12px 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    z-index: 1000;
+    box-shadow: var(--shadow);
+}
+
+.control-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.control-label {
+    font-size: 12px;
+    color: var(--text-secondary);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.btn {
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+}
+
+.btn:hover {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+}
+
+.btn.active {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+}
+
+.font-btn {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.theme-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    padding: 0;
+    border-width: 2px;
+}
+
+.theme-btn.light { background: #f5f7fa; border-color: #ccc; }
+.theme-btn.dark { background: #1a1a2e; border-color: #444; }
+.theme-btn.sepia { background: #f4ecd8; border-color: #c9b896; }
+
+.lang-btn {
+    font-size: 13px;
+    padding: 6px 12px;
+}
+
+/* Cards */
+.card {
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    margin-bottom: 24px;
+    border: 1px solid var(--border-color);
+}
+
+/* Typography */
+h1 {
+    font-size: 1.4em;
+    margin-bottom: 20px;
+    text-align: center;
+    color: var(--heading-color);
+    font-weight: 600;
+}
+
+h2 {
+    font-size: 1.3em;
+    margin-top: 0;
+    margin-bottom: 16px;
+    color: var(--heading-color);
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 8px;
+    font-weight: 600;
+}
+
+h3 {
+    font-size: 1.1em;
+    margin-bottom: 8px;
+    margin-top: 24px;
+    color: var(--heading-color);
+    font-weight: 600;
+}
+
+h3:first-of-type {
+    margin-top: 16px;
+}
+
+p {
+    font-size: 1em;
+    margin-top: 0;
+    margin-bottom: 16px;
+    color: var(--text-color);
+}
+
+/* Special elements */
+.mnemonic {
+    background: var(--highlight);
+    color: var(--highlight-text);
+    padding: 16px 20px;
+    border-radius: 12px;
+    margin: 16px 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-weight: 600;
+    font-size: 1.1em;
+    text-align: center;
+    letter-spacing: 0.5px;
+}
+
+.mnemonic-explain {
+    font-size: 0.85em;
+    font-weight: 400;
+    margin-top: 8px;
+    opacity: 0.9;
+}
+
+.bangla-tip {
+    background: var(--success);
+    color: var(--success-text);
+    padding: 14px 18px;
+    border-radius: 10px;
+    margin: 12px 0;
+    font-family: 'Noto Sans Bengali', 'Kalpurush', Arial, sans-serif;
+    font-size: 0.95em;
+    line-height: 1.9;
+}
+
+.bangla-tip strong {
+    display: block;
+    margin-bottom: 4px;
+}
+
+.keyword {
+    background: var(--accent);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 600;
+    display: inline-block;
+    margin: 2px;
+}
+
+.definition-box {
+    border-left: 4px solid var(--accent);
+    padding: 12px 16px;
+    margin: 12px 0;
+    background: var(--bg-color);
+    border-radius: 0 8px 8px 0;
+}
+
+.definition-box .term {
+    font-weight: 700;
+    color: var(--heading-color);
+}
+
+.checklist {
+    list-style: none;
+    padding: 0;
+    margin: 16px 0;
+}
+
+.checklist li {
+    padding: 10px 0;
+    border-bottom: 1px dashed var(--border-color);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.checklist li:last-child {
+    border-bottom: none;
+}
+
+.checklist input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-top: 3px;
+    accent-color: var(--accent);
+}
+
+.step-number {
+    background: var(--accent);
+    color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 14px;
+    margin-right: 10px;
+    flex-shrink: 0;
+}
+
+.visual-aid {
+    text-align: center;
+    padding: 20px;
+    background: var(--bg-color);
+    border-radius: 12px;
+    margin: 16px 0;
+}
+
+.visual-aid .emoji {
+    font-size: 2em;
+    margin: 4px;
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+    body {
+        padding: 40px;
+        padding-top: 80px;
+        font-size: 18px;
+    }
+    .controls { padding: 14px 24px; gap: 20px; }
+    .card { padding: 32px; }
+    h1 { font-size: 1.6em; }
+    h2 { font-size: 1.4em; }
+}
+
+/* Font sizes */
+.font-small { font-size: 14px; }
+.font-medium { font-size: 16px; }
+.font-large { font-size: 18px; }
+.font-xlarge { font-size: 20px; }
+.font-xxlarge { font-size: 22px; }
+
+@media (min-width: 768px) {
+    .font-small { font-size: 16px; }
+    .font-medium { font-size: 18px; }
+    .font-large { font-size: 20px; }
+    .font-xlarge { font-size: 22px; }
+    .font-xxlarge { font-size: 24px; }
+}
+
+.font-size-display {
+    font-size: 12px;
+    color: var(--text-secondary);
+    min-width: 24px;
+    text-align: center;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+</style>
+</head>
+
+<body class="font-medium">
+
+<div class="controls">
+    <div class="control-group">
+        <a href="index.html" class="btn lang-btn">English</a>
+        <a href="bangla.html" class="btn lang-btn">বাংলা</a>
+    </div>
+
+    <div class="control-group">
+        <span class="control-label">Size</span>
+        <button class="btn font-btn" onclick="decreaseFont()">A-</button>
+        <span class="font-size-display" id="fontLevel">2</span>
+        <button class="btn font-btn" onclick="increaseFont()">A+</button>
+    </div>
+
+    <div class="control-group">
+        <span class="control-label">Theme</span>
+        <button class="btn theme-btn light active" onclick="setTheme('light')" data-theme-btn="light"></button>
+        <button class="btn theme-btn sepia" onclick="setTheme('sepia')" data-theme-btn="sepia"></button>
+        <button class="btn theme-btn dark" onclick="setTheme('dark')" data-theme-btn="dark"></button>
+    </div>
+</div>
+
+<div class="container">
+
+<h1>Memorization Techniques</h1>
+
+<!-- ANSWER 1: PARALANGUAGE -->
+<div class="card">
+<h2>Answer 1: Six Features of Paralanguage</h2>
+
+<div class="mnemonic">
+    P - V - R - V - I - V
+    <div class="mnemonic-explain">"Please Voice Right, Voice It Very-well"</div>
+</div>
+
+<div class="bangla-tip">
+    <strong>মনে রাখার কৌশল:</strong>
+    "Please Voice Right, Voice It Very-well" - এই বাক্যটি মনে রাখুন। প্রতিটি শব্দের প্রথম অক্ষর ৬টি বৈশিষ্ট্যের প্রথম অক্ষর: Pitch, Volume, Rate, Voice quality, Intonation, Vocalized pauses।
+</div>
+
+<h3><span class="step-number">1</span> Pitch</h3>
+<div class="definition-box">
+    <span class="term">Pitch</span> = the <strong>highness or lowness</strong> of vocal tone.
+</div>
+<div class="visual-aid">
+    <span class="emoji">📈</span> High pitch = nervous, afraid, questions<br>
+    <span class="emoji">📉</span> Low pitch = sad, peaceful, forceful
+</div>
+<div class="bangla-tip">
+    <strong>মনে রাখুন:</strong> Pitch = পিচ = উঁচু-নিচু। ভয় পেলে গলা উঁচু হয়, দুঃখে নিচু হয়। "পিচে উঠলে ভয়, নামলে শোক।"
+</div>
+
+<h3><span class="step-number">2</span> Volume</h3>
+<div class="definition-box">
+    <span class="term">Volume</span> = the <strong>loudness or softness</strong> of vocal tone.
+</div>
+<div class="visual-aid">
+    <span class="emoji">📢</span> Loud = noisy places, anger<br>
+    <span class="emoji">🤫</span> Soft = reflective, romantic
+</div>
+<div class="bangla-tip">
+    <strong>মনে রাখুন:</strong> Volume = ভলিউম = জোরে-আস্তে। "রাগে চিৎকার, ভালোবাসায় ফিসফিস।"
+</div>
+
+<h3><span class="step-number">3</span> Rate</h3>
+<div class="definition-box">
+    <span class="term">Rate</span> = the <strong>speed</strong> at which a person speaks. (100-200 words/min in USA)
+</div>
+<div class="visual-aid">
+    <span class="emoji">🏃</span> Fast = happy, nervous, excited<br>
+    <span class="emoji">🐢</span> Slow = problem-solving, emphasizing
+</div>
+<div class="bangla-tip">
+    <strong>মনে রাখুন:</strong> Rate = রেট = গতি। "খুশিতে দ্রুত, চিন্তায় ধীর।" খুব দ্রুত = বোঝা যায় না, খুব ধীর = বিরক্তিকর।
+</div>
+
+<h3><span class="step-number">4</span> Voice Quality (Timbre)</h3>
+<div class="definition-box">
+    <span class="term">Voice Quality</span> = the <strong>sound that distinguishes</strong> one person's voice from others.
+</div>
+<div class="visual-aid">
+    4 Types: <span class="keyword">Breathy</span> <span class="keyword">Strident</span> <span class="keyword">Throaty</span> <span class="keyword">Nasal</span>
+</div>
+
+<div class="mnemonic">
+    B - S - T - N
+    <div class="mnemonic-explain">"Boys Should Talk Naturally"</div>
+</div>
+
+<table style="width:100%; margin: 16px 0; border-collapse: collapse;">
+    <tr style="background: var(--bg-color);">
+        <th style="padding: 10px; text-align: left; border-bottom: 2px solid var(--border-color);">Type</th>
+        <th style="padding: 10px; text-align: left; border-bottom: 2px solid var(--border-color);">Example</th>
+        <th style="padding: 10px; text-align: left; border-bottom: 2px solid var(--border-color);">Too much =</th>
+    </tr>
+    <tr>
+        <td style="padding: 10px; border-bottom: 1px solid var(--border-color);">Breathy</td>
+        <td style="padding: 10px; border-bottom: 1px solid var(--border-color);">Marilyn Monroe</td>
+        <td style="padding: 10px; border-bottom: 1px solid var(--border-color);">sounds frail</td>
+    </tr>
+    <tr>
+        <td style="padding: 10px; border-bottom: 1px solid var(--border-color);">Strident</td>
+        <td style="padding: 10px; border-bottom: 1px solid var(--border-color);">Joan Rivers</td>
+        <td style="padding: 10px; border-bottom: 1px solid var(--border-color);">seems tense</td>
+    </tr>
+    <tr>
+        <td style="padding: 10px; border-bottom: 1px solid var(--border-color);">Throaty</td>
+        <td style="padding: 10px; border-bottom: 1px solid var(--border-color);">Jack Nicholson</td>
+        <td style="padding: 10px; border-bottom: 1px solid var(--border-color);">cold, unsympathetic</td>
+    </tr>
+    <tr>
+        <td style="padding: 10px;">Nasal</td>
+        <td style="padding: 10px;">Fran Drescher</td>
+        <td style="padding: 10px;">immature, unintelligent</td>
+    </tr>
+</table>
+
+<div class="bangla-tip">
+    <strong>মনে রাখুন:</strong> "BSTN = Boys Should Talk Naturally"<br>
+    Breathy = শ্বাসমিশ্রিত (দুর্বল), Strident = তীক্ষ্ণ (টেনশন), Throaty = গলাভারী (ঠান্ডা), Nasal = নাকি (অপরিণত)
+</div>
+
+<h3><span class="step-number">5</span> Intonation</h3>
+<div class="definition-box">
+    <span class="term">Intonation</span> = the <strong>variety, melody, or inflection</strong> in one's voice.
+</div>
+<div class="visual-aid">
+    <span class="emoji">😴</span> No intonation = Monotone = BORING (Ben Stein: "Bueller? Bueller?")<br>
+    <span class="emoji">🎭</span> Too much = ditzy, singsongy, childish<br>
+    <span class="emoji">✅</span> Moderate = BEST
+</div>
+<div class="bangla-tip">
+    <strong>মনে রাখুন:</strong> Intonation = সুরের ওঠানামা। "একই সুরে বললে ঘুম পায়, বেশি নাচলে বোকা লাগে।" মাঝামাঝি সবচেয়ে ভালো!
+</div>
+
+<h3><span class="step-number">6</span> Vocalized Pauses</h3>
+<div class="definition-box">
+    <span class="term">Vocalized Pauses</span> = <strong>extraneous sounds/words</strong> that interrupt fluent speech. They are "place markers."
+</div>
+<div class="visual-aid">
+    Examples: <span class="keyword">uh</span> <span class="keyword">er</span> <span class="keyword">well</span> <span class="keyword">OK</span> <span class="keyword">you know</span> <span class="keyword">like</span>
+</div>
+<div class="bangla-tip">
+    <strong>মনে রাখুন:</strong> Vocalized Pauses = "আহ, এর, মানে, বুঝলেন" টাইপ শব্দ। মাঝে মাঝে ঠিক আছে, কিন্তু বেশি হলে মনে হয় - আত্মবিশ্বাস নেই বা চিন্তা করা হয়নি।
+</div>
+
+<h3>Quick Recall Checklist</h3>
+<ul class="checklist">
+    <li><input type="checkbox"> <strong>Pitch</strong> - highness/lowness of tone (nervous=high, sad=low)</li>
+    <li><input type="checkbox"> <strong>Volume</strong> - loudness/softness (angry=loud, romantic=soft)</li>
+    <li><input type="checkbox"> <strong>Rate</strong> - speed of speaking (100-200 wpm, fast=excited, slow=emphasizing)</li>
+    <li><input type="checkbox"> <strong>Voice Quality</strong> - BSTN: Breathy, Strident, Throaty, Nasal</li>
+    <li><input type="checkbox"> <strong>Intonation</strong> - melody/variety (monotone=boring, moderate=best)</li>
+    <li><input type="checkbox"> <strong>Vocalized Pauses</strong> - "uh, er, like, you know" (place markers)</li>
+</ul>
+
+</div>
+
+<!-- ANSWER 2: SITUATION ANALYSIS -->
+<div class="card">
+<h2>Answer 2: Situation Analysis (Mr. Ali's Mistakes)</h2>
+
+<div class="mnemonic">
+    P - P - S - I - Q
+    <div class="mnemonic-explain">"Professional Presenters Should Interact with Questions"</div>
+</div>
+
+<div class="bangla-tip">
+    <strong>মনে রাখার কৌশল:</strong>
+    "PPSIQ" = Professional Presenters Should Interact with Questions<br>
+    Physical Appearance, Proxemics, Scripted vs Extemporaneous, Icebreaking, Q&A
+</div>
+
+<h3><span class="step-number">1</span> Physical Appearance</h3>
+<div class="definition-box">
+    <span class="term">Physical Appearance</span> = how we look (clothing, grooming, artifacts) - sends <strong>strong nonverbal messages</strong>
+</div>
+
+<p><strong>Mr. Ali's Mistake:</strong> Wore <span class="keyword">fatua</span> <span class="keyword">khakis</span> <span class="keyword">sandals</span> to formal event</p>
+<p><strong>Should have:</strong> Worn <strong>formal business attire</strong></p>
+
+<div class="bangla-tip">
+    <strong>মনে রাখুন:</strong> "Physical = চেহারা/পোশাক"। ফর্মাল ইভেন্টে ফতুয়া-স্যান্ডেল = ভুল! ফর্মাল পোশাক = বিশ্বাসযোগ্যতা। "প্রথম দেখায় যা মনে হয়, তাই থেকে যায়।"
+</div>
+
+<h3><span class="step-number">2</span> Proxemics</h3>
+<div class="definition-box">
+    <span class="term">Proxemics</span> = study of <strong>spatial cues</strong> (physical distance and space) to communicate meaning
+</div>
+
+<p><strong>Mr. Ali's Mistake:</strong> Stood <span class="keyword">statically behind lectern</span> the whole time</p>
+<p><strong>Should have:</strong> <strong>Stepped away</strong> and moved naturally around stage</p>
+
+<div class="bangla-tip">
+    <strong>মনে রাখুন:</strong> "Proxemics = দূরত্ব/স্থান"। লেকটার্নের পিছনে স্থির = দেয়ালের মতো বাধা! মঞ্চে হাঁটাচলা = দর্শকদের সাথে সংযোগ। "দূরে থাকলে দূরই থাকে মন।"
+</div>
+
+<h3><span class="step-number">3</span> Scripted vs. Extemporaneous</h3>
+<div class="definition-box">
+    <span class="term">Scripted</span> = written out entirely, read word-for-word (mechanical, limited eye contact)<br>
+    <span class="term">Extemporaneous</span> = planned + rehearsed, but uses brief outline (conversational, adaptive)
+</div>
+
+<p><strong>Mr. Ali's Mistake:</strong> Read a <span class="keyword">scripted speech</span> - fumbled, couldn't connect</p>
+<p><strong>Should have:</strong> Prepared <strong>outline</strong>, practiced <strong>extemporaneous</strong> delivery</p>
+
+<div class="bangla-tip">
+    <strong>মনে রাখুন:</strong><br>
+    Scripted = "পড়া" (রোবটের মতো) ❌<br>
+    Extemporaneous = "প্রস্তুত কিন্তু স্বাভাবিক" ✅<br>
+    "এক মাস সময় ছিল, শুধু রূপরেখা বানিয়ে অনুশীলন করলেই হতো!"
+</div>
+
+<h3><span class="step-number">4</span> Icebreaking</h3>
+<div class="definition-box">
+    <span class="term">Icebreaking</span> = <strong>introductory techniques</strong> at the beginning to capture attention and establish rapport
+</div>
+
+<p><strong>Mr. Ali's Mistake:</strong> Went <span class="keyword">straight into speech</span> without acknowledging audience</p>
+<p><strong>Should have:</strong> Started with <strong>icebreaker</strong> (e.g., personal anecdote about early business days)</p>
+
+<div class="bangla-tip">
+    <strong>মনে রাখুন:</strong> "Icebreaking = বরফ ভাঙা"। হঠাৎ শুরু = ঠান্ডা সম্পর্ক। গল্প/অভিবাদন দিয়ে শুরু = উষ্ণতা। "আগে সম্পর্ক, তারপর কথা।"
+</div>
+
+<h3><span class="step-number">5</span> Q&A (Question and Answer)</h3>
+<div class="definition-box">
+    <span class="term">Q&A</span> = designated time for audience to seek <strong>clarification</strong> or <strong>information</strong>. Handle with: listen carefully, answer honestly, manage time.
+</div>
+
+<p><strong>Mr. Ali's Mistake:</strong> <span class="keyword">Left without acknowledging</span> audience</p>
+<p><strong>Should have:</strong></p>
+<ul>
+    <li>Concluded gracefully and <strong>invited questions</strong></li>
+    <li>Example Q: "What is the biggest challenge in finding funding?" → Share practical advice</li>
+    <li>Skeptical Q: "Isn't starting a business too risky?" → Stay calm, validate concern, explain risk strategies</li>
+</ul>
+
+<div class="bangla-tip">
+    <strong>মনে রাখুন:</strong> "Q&A = প্রশ্নোত্তর"। চলে গেলেন কিছু না বলে = সবচেয়ে বড় ভুল! প্রশ্ন শুনুন, সৎ উত্তর দিন, কঠিন প্রশ্নে শান্ত থাকুন। "শেষটা ভালো যার, সবই ভালো তার।"
+</div>
+
+<h3>Quick Recall: Mr. Ali's 5 Mistakes</h3>
+<ul class="checklist">
+    <li><input type="checkbox"> <strong>Physical Appearance</strong> - casual clothes at formal event → wear formal attire</li>
+    <li><input type="checkbox"> <strong>Proxemics</strong> - stuck behind lectern → move around stage</li>
+    <li><input type="checkbox"> <strong>Scripted Speech</strong> - read word-for-word → use extemporaneous with outline</li>
+    <li><input type="checkbox"> <strong>Icebreaking</strong> - no greeting/story → start with icebreaker</li>
+    <li><input type="checkbox"> <strong>Q&A</strong> - left without questions → invite and handle questions gracefully</li>
+</ul>
+
+</div>
+
+<!-- STUDY STRATEGY -->
+<div class="card">
+<h2>Study Strategy / পড়ার কৌশল</h2>
+
+<h3>Active Recall Method</h3>
+<ol>
+    <li><strong>Read once</strong> from the original English page</li>
+    <li><strong>Close the page</strong> and try to recall all points</li>
+    <li><strong>Check</strong> what you missed using checklists above</li>
+    <li><strong>Repeat</strong> until you can recall everything</li>
+</ol>
+
+<div class="bangla-tip">
+    <strong>সক্রিয় স্মরণ পদ্ধতি:</strong><br>
+    ১. ইংরেজি পৃষ্ঠা থেকে একবার পড়ুন<br>
+    ২. পৃষ্ঠা বন্ধ করে মনে করার চেষ্টা করুন<br>
+    ৩. চেকলিস্ট দিয়ে যা মিস করেছেন দেখুন<br>
+    ৪. সব মনে না হওয়া পর্যন্ত পুনরাবৃত্তি করুন
+</div>
+
+<h3>Spaced Repetition</h3>
+<ul>
+    <li>Review <strong>today</strong></li>
+    <li>Review <strong>tomorrow</strong></li>
+    <li>Review in <strong>3 days</strong></li>
+    <li>Review in <strong>1 week</strong></li>
+</ul>
+
+<div class="bangla-tip">
+    <strong>বিরতিসহ পুনরাবৃত্তি:</strong> আজ → কাল → ৩ দিন পর → ১ সপ্তাহ পর। এভাবে দীর্ঘমেয়াদী স্মৃতিতে থাকবে!
+</div>
+
+<h3>Final Tip</h3>
+<p><strong>Say it out loud!</strong> Reading silently is not enough. Speak the definitions as if you're explaining to someone else.</p>
+
+<div class="bangla-tip">
+    <strong>শেষ পরামর্শ:</strong> জোরে পড়ুন! চুপচাপ পড়লে হবে না। এমনভাবে বলুন যেন কাউকে বোঝাচ্ছেন। এতে Paralanguage-ও অনুশীলন হবে! 😄
+</div>
+
+</div>
+
+</div>
+
+<script>
+const fontSizes = ['font-small', 'font-medium', 'font-large', 'font-xlarge', 'font-xxlarge'];
+let currentFontIndex = 1;
+
+function updateFontDisplay() {
+    document.getElementById('fontLevel').textContent = currentFontIndex + 1;
+}
+
+function increaseFont() {
+    if (currentFontIndex < fontSizes.length - 1) {
+        document.body.classList.remove(fontSizes[currentFontIndex]);
+        currentFontIndex++;
+        document.body.classList.add(fontSizes[currentFontIndex]);
+        updateFontDisplay();
+        savePreferences();
+    }
+}
+
+function decreaseFont() {
+    if (currentFontIndex > 0) {
+        document.body.classList.remove(fontSizes[currentFontIndex]);
+        currentFontIndex--;
+        document.body.classList.add(fontSizes[currentFontIndex]);
+        updateFontDisplay();
+        savePreferences();
+    }
+}
+
+function setTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+    document.querySelector(`[data-theme-btn="${theme}"]`).classList.add('active');
+    savePreferences();
+}
+
+function savePreferences() {
+    const prefs = {
+        fontIndex: currentFontIndex,
+        theme: document.documentElement.getAttribute('data-theme') || 'light'
+    };
+    localStorage.setItem('readingPrefs', JSON.stringify(prefs));
+}
+
+function loadPreferences() {
+    try {
+        const prefs = JSON.parse(localStorage.getItem('readingPrefs'));
+        if (prefs) {
+            document.body.classList.remove(fontSizes[currentFontIndex]);
+            currentFontIndex = prefs.fontIndex || 1;
+            document.body.classList.add(fontSizes[currentFontIndex]);
+            updateFontDisplay();
+            if (prefs.theme) setTheme(prefs.theme);
+        }
+    } catch (e) {}
+}
+
+// Save checkbox states
+document.querySelectorAll('.checklist input').forEach((cb, i) => {
+    const key = 'checkbox_' + i;
+    cb.checked = localStorage.getItem(key) === 'true';
+    cb.addEventListener('change', () => {
+        localStorage.setItem(key, cb.checked);
+    });
+});
+
+loadPreferences();
+</script>
+
+</body>
+</html>

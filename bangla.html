@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>প্যারাল্যাঙ্গুয়েজ - বাংলা অনুবাদ</title>
+
+<style>
+/* CSS Variables for Themes */
+:root {
+    --bg-color: #f5f7fa;
+    --card-bg: #ffffff;
+    --text-color: #2d3748;
+    --text-secondary: #4a5568;
+    --heading-color: #1a202c;
+    --border-color: #e2e8f0;
+    --shadow: 0 4px 12px rgba(0,0,0,0.08);
+    --accent: #4a90d9;
+}
+
+[data-theme="dark"] {
+    --bg-color: #1a1a2e;
+    --card-bg: #252542;
+    --text-color: #e2e8f0;
+    --text-secondary: #a0aec0;
+    --heading-color: #f7fafc;
+    --border-color: #3d3d5c;
+    --shadow: 0 4px 12px rgba(0,0,0,0.3);
+    --accent: #63b3ed;
+}
+
+[data-theme="sepia"] {
+    --bg-color: #f4ecd8;
+    --card-bg: #faf6eb;
+    --text-color: #5c4b37;
+    --text-secondary: #6b5a47;
+    --heading-color: #3d2e1f;
+    --border-color: #d9ceb8;
+    --shadow: 0 4px 12px rgba(92,75,55,0.12);
+    --accent: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Mobile First Design */
+body {
+    margin: 0;
+    padding: 16px;
+    padding-top: 70px;
+    font-family: 'Noto Sans Bengali', 'Kalpurush', 'SolaimanLipi', Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 2;
+    font-size: 16px;
+}
+
+.container {
+    max-width: 720px;
+    margin: auto;
+}
+
+/* Reading Controls Panel */
+.controls {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--border-color);
+    padding: 12px 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    z-index: 1000;
+    box-shadow: var(--shadow);
+}
+
+.control-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.control-label {
+    font-size: 12px;
+    color: var(--text-secondary);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.btn {
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.btn:hover {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+}
+
+.btn:active {
+    transform: scale(0.95);
+}
+
+.btn.active {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+}
+
+.font-btn {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.theme-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    padding: 0;
+    border-width: 2px;
+}
+
+.theme-btn.light {
+    background: #f5f7fa;
+    border-color: #ccc;
+}
+
+.theme-btn.dark {
+    background: #1a1a2e;
+    border-color: #444;
+}
+
+.theme-btn.sepia {
+    background: #f4ecd8;
+    border-color: #c9b896;
+}
+
+.lang-btn {
+    font-size: 13px;
+    padding: 6px 12px;
+}
+
+/* Cards */
+.card {
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    margin-bottom: 24px;
+    border: 1px solid var(--border-color);
+}
+
+/* Typography */
+h1 {
+    font-size: 1.4em;
+    margin-bottom: 20px;
+    text-align: center;
+    color: var(--heading-color);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+}
+
+h2 {
+    font-size: 1.3em;
+    margin-top: 0;
+    margin-bottom: 16px;
+    color: var(--heading-color);
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 8px;
+    font-weight: 600;
+}
+
+h3 {
+    font-size: 1.1em;
+    margin-bottom: 8px;
+    margin-top: 24px;
+    color: var(--heading-color);
+    font-weight: 600;
+}
+
+h3:first-of-type {
+    margin-top: 16px;
+}
+
+p {
+    font-size: 1em;
+    margin-top: 0;
+    margin-bottom: 16px;
+    text-align: justify;
+    hyphens: auto;
+    color: var(--text-color);
+}
+
+/* Better paragraph spacing for readability */
+p:last-child {
+    margin-bottom: 0;
+}
+
+/* Larger screens */
+@media (min-width: 768px) {
+    body {
+        padding: 40px;
+        padding-top: 80px;
+        font-size: 18px;
+    }
+
+    .controls {
+        padding: 14px 24px;
+        gap: 20px;
+    }
+
+    .card {
+        padding: 32px;
+    }
+
+    h1 {
+        font-size: 1.6em;
+    }
+
+    h2 {
+        font-size: 1.4em;
+    }
+
+    h3 {
+        font-size: 1.15em;
+    }
+}
+
+/* Font size classes */
+.font-small { font-size: 14px; }
+.font-medium { font-size: 16px; }
+.font-large { font-size: 18px; }
+.font-xlarge { font-size: 20px; }
+.font-xxlarge { font-size: 22px; }
+
+@media (min-width: 768px) {
+    .font-small { font-size: 16px; }
+    .font-medium { font-size: 18px; }
+    .font-large { font-size: 20px; }
+    .font-xlarge { font-size: 22px; }
+    .font-xxlarge { font-size: 24px; }
+}
+
+/* Line height adjustment for larger fonts */
+.font-xlarge, .font-xxlarge {
+    line-height: 2.1;
+}
+
+/* Smooth scroll */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Focus styles for accessibility */
+.btn:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+/* Font size indicator */
+.font-size-display {
+    font-size: 12px;
+    color: var(--text-secondary);
+    min-width: 24px;
+    text-align: center;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+</style>
+</head>
+
+<body class="font-medium">
+
+<!-- Reading Controls -->
+<div class="controls">
+    <div class="control-group">
+        <a href="index.html" class="btn lang-btn">English</a>
+        <a href="memorize.html" class="btn lang-btn">Memorize</a>
+    </div>
+
+    <div class="control-group">
+        <span class="control-label">Size</span>
+        <button class="btn font-btn" onclick="decreaseFont()" aria-label="Decrease font size">A-</button>
+        <span class="font-size-display" id="fontLevel">2</span>
+        <button class="btn font-btn" onclick="increaseFont()" aria-label="Increase font size">A+</button>
+    </div>
+
+    <div class="control-group">
+        <span class="control-label">Theme</span>
+        <button class="btn theme-btn light active" onclick="setTheme('light')" aria-label="Light theme" data-theme-btn="light"></button>
+        <button class="btn theme-btn sepia" onclick="setTheme('sepia')" aria-label="Sepia theme" data-theme-btn="sepia"></button>
+        <button class="btn theme-btn dark" onclick="setTheme('dark')" aria-label="Dark theme" data-theme-btn="dark"></button>
+    </div>
+</div>
+
+<div class="container">
+
+<h1>প্যারাল্যাঙ্গুয়েজ স্টাডি নোটস</h1>
+
+<div class="card">
+<h2>উত্তর ১</h2>
+
+<p>প্যারাল্যাঙ্গুয়েজ (যা ভোকালিক্স নামেও পরিচিত) হলো কথ্য বার্তার সেই কণ্ঠস্বরিত অংশ যা প্রকৃত শব্দের বাইরে যায়। প্যারাল্যাঙ্গুয়েজের ছয়টি কণ্ঠস্বর বৈশিষ্ট্য হলো পিচ, ভলিউম, রেট, ভয়েস কোয়ালিটি, ইনটোনেশন এবং ভোকালাইজড পজ।</p>
+
+<h3>পিচ (Pitch)</h3>
+<p>পিচ হলো কণ্ঠস্বরের উচ্চতা বা নিম্নতা। আমরা ধারণা এবং আবেগকে জোর দিতে, সেইসাথে প্রশ্ন নির্দেশ করতে আমাদের পিচ উঠানামা করি। নার্ভাস বা ভীত অনুভব করলে আমরা কখনো কখনো আমাদের পিচ বাড়াই। শান্তি বা দুঃখ প্রকাশ করতে (যেমন শেষকৃত্যে দেওয়া বক্তৃতায়) অথবা জোরালো হওয়ার চেষ্টা করলে আমরা আমাদের পিচ কমাতে পারি।</p>
+
+<h3>ভলিউম (Volume)</h3>
+<p>ভলিউম হলো কণ্ঠস্বরের জোর বা মৃদুতা। যেখানে কিছু মানুষের গর্জনকারী কণ্ঠ আছে যা দূরে পৌঁছায়, অন্যরা স্বাভাবিকভাবে মৃদুভাষী। তবে আমাদের স্বাভাবিক ভলিউম স্তর যাই হোক না কেন, আমরা পরিস্থিতি, আলোচনার বিষয় এবং আবেগীয় উদ্দেশ্যের উপর নির্ভর করে আমাদের ভলিউম পরিবর্তন করি। উদাহরণস্বরূপ, কোলাহলপূর্ণ পরিবেশে শোনা যেতে এবং রাগান্বিত হলে আমরা আরও জোরে কথা বলতে পারি। প্রতিফলিত বা রোমান্টিক হলে আমরা আরও মৃদু বলতে পারি। ভলিউমের সাথে সংযুক্ত অর্থে কিছু সাংস্কৃতিক ভিন্নতাও রয়েছে।</p>
+
+<h3>রেট (Rate)</h3>
+<p>রেট হলো একজন ব্যক্তি যে গতিতে কথা বলে। মার্কিন যুক্তরাষ্ট্রের বেশিরভাগ মানুষ স্বাভাবিকভাবে প্রতি মিনিটে ১০০ থেকে ২০০ শব্দ বলে। মানুষ সুখী, ভীত, নার্ভাস বা উত্তেজিত হলে দ্রুত এবং সমস্যা সমাধান করতে গিয়ে বা কোনো বিষয়ে জোর দিতে চাইলে ধীরে কথা বলে। যারা খুব ধীরে কথা বলে তারা শ্রোতাদের বিরক্ত করার ঝুঁকিতে থাকে, এবং যারা খুব দ্রুত বলে তারা বোধগম্য নাও হতে পারে।</p>
+
+<h3>ভয়েস কোয়ালিটি (বা টিম্বার)</h3>
+<p>ভয়েস কোয়ালিটি (বা টিম্বার) হলো একজন ব্যক্তির কণ্ঠস্বরের সেই শব্দ যা তাকে অন্যদের থেকে আলাদা করে। ভয়েস কোয়ালিটি হতে পারে ব্রেথি (মেরিলিন মনরো বা ক্যাথলিন টার্নার), স্ট্রাইডেন্ট (জোয়ান রিভার্স বা মার্জ সিম্পসন), থ্রোটি (নিক নোল্ট বা জ্যাক নিকলসন), বা ন্যাজাল (দ্য ন্যানি-তে ফ্রান ড্রেসার)। যদিও প্রতিটি মানুষের কণ্ঠে একটি স্বতন্ত্র গুণ আছে, অত্যধিক ব্রেথিনেস মানুষকে দুর্বল শোনাতে পারে, অত্যধিক স্ট্রাইডেন্স তাদের অতি টানটান মনে করাতে পারে, অত্যধিক থ্রোটিনেস তাদের ঠান্ডা এবং সহানুভূতিহীন মনে করাতে পারে, এবং অত্যধিক ন্যাজালিটি তাদের অপরিণত বা বুদ্ধিহীন শোনাতে পারে।</p>
+
+<h3>ইনটোনেশন (Intonation)</h3>
+<p>ইনটোনেশন হলো কণ্ঠস্বরের বৈচিত্র্য, সুর বা আরোহ-অবরোহ। যে কণ্ঠস্বর খুব কম বা কোনো ইনটোনেশন ব্যবহার করে না তাকে একঘেয়ে বলা হয় এবং এটি শ্রোতাদের বিরক্ত করে। আপনি যদি ফেরিস বুয়েলার্স ডে অফ মুভিটি দেখে থাকেন, তাহলে হয়তো সেই শিক্ষককে (বেন স্টেইন অভিনীত) মনে করতে পারেন যাকে ক্লাসে প্রশ্ন করার সময় একঘেয়ে কণ্ঠের মাধ্যমে বিরক্তিকর হিসেবে চিত্রিত করা হয়েছে: "Anyone? Anyone? Bueller? Bueller?"। অন্যদিকে যে কণ্ঠস্বর অনেক বেশি ইনটোনেশন ব্যবহার করে তাকে বোকা, গানের মতো বা শিশুসুলভ মনে হতে পারে। মানুষ মাঝারি পরিমাণ ইনটোনেশন ব্যবহার করা কণ্ঠস্বর শুনতে পছন্দ করে।</p>
+
+<h3>ভোকালাইজড পজ (Vocalized Pauses)</h3>
+<p>ভোকালাইজড পজ হলো অপ্রয়োজনীয় শব্দ বা কথা যা সাবলীল বক্তৃতায় বাধা দেয়। এগুলো মূলত "স্থান চিহ্নিতকারী" যা সঠিক শব্দ বা ধারণা খোঁজার সময় সাময়িক শূন্যতা পূরণ করতে ডিজাইন করা হয়েছে। আমাদের কথায় সবচেয়ে সাধারণ ভোকালাইজড পজ হলো "আহ," "এর," "আচ্ছা," "ওকে," "তুমি জানো," এবং "মানে"। মাঝে মাঝে ভোকালাইজড পজ সাধারণত শ্রোতারা উপেক্ষা করে। তবে, অতিরিক্ত ব্যবহার করলে ভোকালাইজড পজ অন্যদের কাছে এই ধারণা দিতে পারে যে আমরা নিজেদের সম্পর্কে অনিশ্চিত বা আমাদের ধারণাগুলো ভালোভাবে চিন্তা করা হয়নি। কখনো কখনো বক্তারা এত বেশি ভোকালাইজড পজ ব্যবহার করে যে শ্রোতারা এতে বিভ্রান্ত হয়ে বার্তার অর্থে মনোযোগ দিতে পারে না।</p>
+
+</div>
+
+<div class="card">
+<h2>উত্তর ২: পরিস্থিতি বিশ্লেষণ</h2>
+
+<h3>শারীরিক উপস্থিতি (Physical Appearance)</h3>
+<p>শারীরিক উপস্থিতি বলতে বোঝায় আমরা অন্যদের কাছে কেমন দেখাই, যার মধ্যে রয়েছে পোশাক, সাজসজ্জা এবং ব্যক্তিগত সামগ্রী, যা শক্তিশালী অমৌখিক বার্তা পাঠায়। এটি দর্শকরা প্রথমে যা লক্ষ্য করে তার মধ্যে একটি এবং বক্তার বিশ্বাসযোগ্যতা সম্পর্কে তাদের প্রাথমিক ধারণাকে দৃঢ়ভাবে প্রভাবিত করে। মিস্টার আলী Entrepreneurs BD United আয়োজিত একটি আনুষ্ঠানিক অনুষ্ঠানে ফতুয়া, খাকি এবং স্যান্ডেল পরে একটি উল্লেখযোগ্য ভুল করেছিলেন। যেহেতু তিনি "ব্যবসা শুরু করা" বিষয়ে বলছিলেন, তাঁর নৈমিত্তিক পোশাক তাঁর পেশাদার কর্তৃত্বকে ক্ষুণ্ণ করেছে। অনুষ্ঠানের প্রতি সম্মান প্রদর্শন এবং তাৎক্ষণিক বিশ্বাসযোগ্যতা প্রতিষ্ঠার জন্য তাঁর আনুষ্ঠানিক ব্যবসায়িক পোশাক পরা উচিত ছিল।</p>
+
+<h3>প্রক্সেমিক্স (Proxemics)</h3>
+<p>প্রক্সেমিক্স হলো মানুষ কীভাবে অর্থ যোগাযোগ করতে স্থানিক সংকেত ব্যবহার করে তার অধ্যয়ন, যার মধ্যে রয়েছে শারীরিক দূরত্ব এবং স্থান। একজন বক্তা দর্শকদের থেকে যে দূরত্ব বজায় রাখে এবং মঞ্চের ব্যবহার হয় সম্পৃক্ততার অনুভূতি তৈরি করতে পারে অথবা আনুষ্ঠানিকতার বাধা তৈরি করতে পারে। মিস্টার আলীর তাঁর পুরো বক্তৃতার সময় স্থিরভাবে লেকটার্নের পিছনে দাঁড়িয়ে থাকার সিদ্ধান্ত একটি ত্রুটি ছিল। লেকটার্ন একটি শারীরিক বাধা হিসেবে কাজ করেছে, তাঁকে দূরবর্তী এবং অগম্য দেখাচ্ছিল। তাঁর শ্রোতাদের সাথে আরও শক্তিশালী সংযোগ গড়ে তুলতে লেকটার্ন থেকে সরে এসে স্বাভাবিকভাবে মঞ্চে চলাফেরা করা উচিত ছিল।</p>
+
+<h3>স্ক্রিপ্টেড স্পিচ বনাম এক্সটেম্পোরেনিয়াস স্পিচ</h3>
+<p>একটি স্ক্রিপ্টেড স্পিচ সম্পূর্ণ লিখিত এবং শব্দে শব্দে পড়া হয়, যেখানে একটি এক্সটেম্পোরেনিয়াস স্পিচ পরিকল্পিত এবং মহড়া দেওয়া কিন্তু শুধুমাত্র একটি সংক্ষিপ্ত রূপরেখা ব্যবহার করে উপস্থাপন করা হয়। স্ক্রিপ্টেড স্পিচ প্রায়ই যান্ত্রিক শোনায় এবং চোখের যোগাযোগ সীমিত করে, যখন এক্সটেম্পোরেনিয়াস উপস্থাপনা কথোপকথনমূলক শোনায় এবং দর্শকদের সাথে মানিয়ে নেওয়ার সুযোগ দেয়। মিস্টার আলী ভুলভাবে একটি স্ক্রিপ্টেড স্পিচ পড়তে বেছে নিয়েছিলেন, যা তাঁকে হোঁচট খেতে এবং সংযোগ স্থাপনে ব্যর্থ হতে বাধ্য করেছে। যেহেতু তাঁর এক মাসের নোটিশ ছিল, তাঁর একটি রূপরেখা প্রস্তুত করে এক্সটেম্পোরেনিয়াস উপস্থাপনার অনুশীলন করা উচিত ছিল। এই পদ্ধতি তাঁকে চোখের যোগাযোগ বজায় রাখতে এবং আরও স্বাভাবিকভাবে কথা বলতে সক্ষম করত।</p>
+
+<h3>আইসব্রেকিং (Icebreaking)</h3>
+<p>আইসব্রেকিং বলতে বক্তৃতার শুরুতে ব্যবহৃত সেই পরিচিতিমূলক কৌশলগুলো বোঝায় যা দর্শকদের মনোযোগ আকর্ষণ এবং তাৎক্ষণিক সম্পর্ক স্থাপন করতে ব্যবহৃত হয়। কার্যকর আইসব্রেকার, যেমন একটি প্রাসঙ্গিক গল্প বা চিন্তাশীল অভিবাদন, একটি স্বাগত জানানোর সুর তৈরি করে এবং দর্শকদের শোনার মোডে রূপান্তরিত হতে সাহায্য করে। মিস্টার আলী এখানে সম্পূর্ণ ব্যর্থ হয়েছেন দর্শকদের স্বীকৃতি না দিয়ে সরাসরি তাঁর বক্তৃতায় ঢুকে গিয়ে। এই আকস্মিক শুরু তাঁকে কোনো সদিচ্ছা তৈরি করতে বাধা দিয়েছে। তাঁর একটি শক্তিশালী আইসব্রেকার দিয়ে শুরু করা উচিত ছিল, সম্ভবত একজন ব্যবসায়ী হিসেবে তাঁর প্রাথমিক দিনগুলোর একটি সংক্ষিপ্ত ব্যক্তিগত উপাখ্যান, দর্শকদের আকৃষ্ট করতে।</p>
+
+<h3>প্রশ্নোত্তর (Q&A)</h3>
+<p>একটি প্রশ্নোত্তর (Q&A) সেশন হলো একটি নির্ধারিত সময় যেখানে দর্শকরা বক্তার কাছ থেকে স্পষ্টীকরণ বা আরও তথ্য চাইতে পারে। প্রশ্নগুলো সম্মানের সাথে পরিচালনা করার মধ্যে রয়েছে মনোযোগ দিয়ে শোনা, রক্ষণাত্মক না হয়ে সততার সাথে উত্তর দেওয়া এবং দক্ষতার সাথে সময় পরিচালনা করা। মিস্টার আলী দর্শকদের স্বীকৃতি না দিয়ে চলে গিয়ে এই সুযোগ সম্পূর্ণ মিস করেছেন। তাঁর সুন্দরভাবে উপসংহার টানা এবং প্রশ্ন আমন্ত্রণ করা উচিত ছিল। যদি কোনো দর্শক জিজ্ঞেস করতেন, "তহবিল খুঁজে পেতে সবচেয়ে বড় চ্যালেঞ্জ কী?", তাঁর সম্মানের সাথে তাঁর ব্যবহারিক পরামর্শ শেয়ার করা উচিত। যদি একটি সন্দেহপূর্ণ প্রশ্নের মুখোমুখি হন যেমন, "এই মুহূর্তে ব্যবসা শুরু করা কি খুব ঝুঁকিপূর্ণ নয়?", তাঁকে শান্ত থাকতে হবে, তাদের উদ্বেগকে বৈধতা দিতে হবে এবং ভদ্রভাবে ঝুঁকি ব্যবস্থাপনার জন্য তাঁর কৌশলগুলো ব্যাখ্যা করতে হবে।</p>
+
+</div>
+
+</div>
+
+<script>
+// Font size management
+const fontSizes = ['font-small', 'font-medium', 'font-large', 'font-xlarge', 'font-xxlarge'];
+let currentFontIndex = 1; // Start at medium
+
+function updateFontDisplay() {
+    document.getElementById('fontLevel').textContent = currentFontIndex + 1;
+}
+
+function increaseFont() {
+    if (currentFontIndex < fontSizes.length - 1) {
+        document.body.classList.remove(fontSizes[currentFontIndex]);
+        currentFontIndex++;
+        document.body.classList.add(fontSizes[currentFontIndex]);
+        updateFontDisplay();
+        savePreferences();
+    }
+}
+
+function decreaseFont() {
+    if (currentFontIndex > 0) {
+        document.body.classList.remove(fontSizes[currentFontIndex]);
+        currentFontIndex--;
+        document.body.classList.add(fontSizes[currentFontIndex]);
+        updateFontDisplay();
+        savePreferences();
+    }
+}
+
+// Theme management
+function setTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+
+    // Update active button state
+    document.querySelectorAll('.theme-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    document.querySelector(`[data-theme-btn="${theme}"]`).classList.add('active');
+    savePreferences();
+}
+
+// Save/Load preferences
+function savePreferences() {
+    const prefs = {
+        fontIndex: currentFontIndex,
+        theme: document.documentElement.getAttribute('data-theme') || 'light'
+    };
+    localStorage.setItem('readingPrefs', JSON.stringify(prefs));
+}
+
+function loadPreferences() {
+    try {
+        const prefs = JSON.parse(localStorage.getItem('readingPrefs'));
+        if (prefs) {
+            // Restore font size
+            document.body.classList.remove(fontSizes[currentFontIndex]);
+            currentFontIndex = prefs.fontIndex || 1;
+            document.body.classList.add(fontSizes[currentFontIndex]);
+            updateFontDisplay();
+
+            // Restore theme
+            if (prefs.theme) {
+                setTheme(prefs.theme);
+            }
+        }
+    } catch (e) {
+        // Use defaults if localStorage fails
+    }
+}
+
+// Initialize on page load
+loadPreferences();
+</script>
+
+</body>
+</html>

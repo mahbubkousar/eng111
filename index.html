@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paralanguage Answers</title>
+
+<style>
+/* CSS Variables for Themes */
+:root {
+    --bg-color: #f5f7fa;
+    --card-bg: #ffffff;
+    --text-color: #2d3748;
+    --text-secondary: #4a5568;
+    --heading-color: #1a202c;
+    --border-color: #e2e8f0;
+    --shadow: 0 4px 12px rgba(0,0,0,0.08);
+    --accent: #4a90d9;
+}
+
+[data-theme="dark"] {
+    --bg-color: #1a1a2e;
+    --card-bg: #252542;
+    --text-color: #e2e8f0;
+    --text-secondary: #a0aec0;
+    --heading-color: #f7fafc;
+    --border-color: #3d3d5c;
+    --shadow: 0 4px 12px rgba(0,0,0,0.3);
+    --accent: #63b3ed;
+}
+
+[data-theme="sepia"] {
+    --bg-color: #f4ecd8;
+    --card-bg: #faf6eb;
+    --text-color: #5c4b37;
+    --text-secondary: #6b5a47;
+    --heading-color: #3d2e1f;
+    --border-color: #d9ceb8;
+    --shadow: 0 4px 12px rgba(92,75,55,0.12);
+    --accent: #8b6914;
+}
+
+* {
+    box-sizing: border-box;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Mobile First Design */
+body {
+    margin: 0;
+    padding: 16px;
+    padding-top: 70px;
+    font-family: Georgia, 'Times New Roman', serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.8;
+    font-size: 16px;
+}
+
+.container {
+    max-width: 720px;
+    margin: auto;
+}
+
+/* Reading Controls Panel */
+.controls {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--border-color);
+    padding: 12px 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    z-index: 1000;
+    box-shadow: var(--shadow);
+}
+
+.control-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.control-label {
+    font-size: 12px;
+    color: var(--text-secondary);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.btn {
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+}
+
+.lang-btn {
+    font-size: 13px;
+    padding: 6px 12px;
+}
+
+.btn:hover {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+}
+
+.btn:active {
+    transform: scale(0.95);
+}
+
+.btn.active {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+}
+
+.font-btn {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.theme-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    padding: 0;
+    border-width: 2px;
+}
+
+.theme-btn.light {
+    background: #f5f7fa;
+    border-color: #ccc;
+}
+
+.theme-btn.dark {
+    background: #1a1a2e;
+    border-color: #444;
+}
+
+.theme-btn.sepia {
+    background: #f4ecd8;
+    border-color: #c9b896;
+}
+
+/* Cards */
+.card {
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    margin-bottom: 24px;
+    border: 1px solid var(--border-color);
+}
+
+/* Typography */
+h1 {
+    font-size: 1.4em;
+    margin-bottom: 20px;
+    text-align: center;
+    color: var(--heading-color);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+}
+
+h2 {
+    font-size: 1.3em;
+    margin-top: 0;
+    margin-bottom: 16px;
+    color: var(--heading-color);
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 8px;
+    font-weight: 600;
+}
+
+h3 {
+    font-size: 1.1em;
+    margin-bottom: 8px;
+    margin-top: 24px;
+    color: var(--heading-color);
+    font-weight: 600;
+}
+
+h3:first-of-type {
+    margin-top: 16px;
+}
+
+p {
+    font-size: 1em;
+    margin-top: 0;
+    margin-bottom: 16px;
+    text-align: justify;
+    hyphens: auto;
+    color: var(--text-color);
+}
+
+/* Better paragraph spacing for readability */
+p:last-child {
+    margin-bottom: 0;
+}
+
+/* Larger screens */
+@media (min-width: 768px) {
+    body {
+        padding: 40px;
+        padding-top: 80px;
+        font-size: 18px;
+    }
+
+    .controls {
+        padding: 14px 24px;
+        gap: 20px;
+    }
+
+    .card {
+        padding: 32px;
+    }
+
+    h1 {
+        font-size: 1.6em;
+    }
+
+    h2 {
+        font-size: 1.4em;
+    }
+
+    h3 {
+        font-size: 1.15em;
+    }
+}
+
+/* Font size classes */
+.font-small { font-size: 14px; }
+.font-medium { font-size: 16px; }
+.font-large { font-size: 18px; }
+.font-xlarge { font-size: 20px; }
+.font-xxlarge { font-size: 22px; }
+
+@media (min-width: 768px) {
+    .font-small { font-size: 16px; }
+    .font-medium { font-size: 18px; }
+    .font-large { font-size: 20px; }
+    .font-xlarge { font-size: 22px; }
+    .font-xxlarge { font-size: 24px; }
+}
+
+/* Line height adjustment for larger fonts */
+.font-xlarge, .font-xxlarge {
+    line-height: 1.9;
+}
+
+/* Smooth scroll */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Focus styles for accessibility */
+.btn:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+/* Font size indicator */
+.font-size-display {
+    font-size: 12px;
+    color: var(--text-secondary);
+    min-width: 24px;
+    text-align: center;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+</style>
+</head>
+
+<body class="font-medium">
+
+<!-- Reading Controls -->
+<div class="controls">
+    <div class="control-group">
+        <a href="bangla.html" class="btn lang-btn">বাংলা</a>
+        <a href="memorize.html" class="btn lang-btn">Memorize</a>
+    </div>
+
+    <div class="control-group">
+        <span class="control-label">Size</span>
+        <button class="btn font-btn" onclick="decreaseFont()" aria-label="Decrease font size">A-</button>
+        <span class="font-size-display" id="fontLevel">2</span>
+        <button class="btn font-btn" onclick="increaseFont()" aria-label="Increase font size">A+</button>
+    </div>
+
+    <div class="control-group">
+        <span class="control-label">Theme</span>
+        <button class="btn theme-btn light active" onclick="setTheme('light')" aria-label="Light theme" data-theme-btn="light"></button>
+        <button class="btn theme-btn sepia" onclick="setTheme('sepia')" aria-label="Sepia theme" data-theme-btn="sepia"></button>
+        <button class="btn theme-btn dark" onclick="setTheme('dark')" aria-label="Dark theme" data-theme-btn="dark"></button>
+    </div>
+</div>
+
+<div class="container">
+
+<h1>Paralanguage Study Notes</h1>
+
+<div class="card">
+<h2>Answer 1</h2>
+
+<p>Paralanguage (also known as vocalics) is the voiced part of a spoken message that goes beyond the actual words. Six vocal characteristics of paralanguage are pitch, volume, rate, voice quality, intonation, and vocalized pauses.</p>
+
+<h3>Pitch</h3>
+<p>Pitch is the highness or lowness of vocal tone. We raise and lower our pitch to emphasize ideas and emotion, as well as to signal a question. We sometimes raise our pitch when feeling nervous or afraid. We may lower our pitch to convey peacefulness or sadness (as in a speech given at a funeral) or when we are trying to be forceful.</p>
+
+<h3>Volume</h3>
+<p>Volume is the loudness or softness of vocal tone. Whereas some people have booming voices that carry long distances, others are normally soft-spoken. Regardless of our normal volume level, however, we also tend to vary our volume depending on the situation, the topic of discussion, and emotional intent. For example, we might talk more loudly when we wish to be heard in noisy settings and when we are angry. We might speak more softly when we are being reflective or romantic. There are also some cultural variations in the meanings attached to volume.</p>
+
+<h3>Rate</h3>
+<p>Rate is the speed at which a person speaks. Most people in the USA naturally speak between 100 and 200 words per minute. People tend to talk more rapidly when they are happy, frightened, nervous, or excited and more slowly when they are problem-solving out loud or are trying to emphasize a point. People who speak too slowly run the risk of boring listeners, and those who speak too quickly may not be intelligible.</p>
+
+<h3>Voice Quality (or timbre)</h3>
+<p>Voice quality (or timbre) is the sound of a person's voice that distinguishes it from others. Voice quality may be breathy (Marilyn Monroe or Kathleen Turner), strident (Joan Rivers or Marge Simpson), throaty (Nick Nolte or Jack Nicholson), or nasal (Fran Drescher in The Nanny). Although each person's voice has a distinct quality, too much breathiness can make people sound frail, too much stridence can make them seem overly tense, too much throatiness can make them seem cold and unsympathetic, and too much nasality can make them sound immature or unintelligent.</p>
+
+<h3>Intonation</h3>
+<p>Intonation is the variety, melody, or inflection in one's voice. Voices that use very little or no intonation are described as monotone and tend to bore listeners. If you've ever seen the movie Ferris Bueller's Day Off, you may recall the teacher (played by Ben Stein) who is portrayed as boring via a monotone voice as he questions the class: "Anyone? Anyone? Bueller? Bueller?". Other voices that use a lot of intonation may be perceived as ditzy, singsongy, or childish. People prefer to listen to voices that use a moderate amount of intonation.</p>
+
+<h3>Vocalized Pauses</h3>
+<p>Vocalized pauses are extraneous sounds or words that interrupt fluent speech. They are essentially "place markers" designed to fill in momentary gaps while we search for the right word or idea. The most common vocalized pauses that creep into our speech include "uh," "er," "well," "OK," "you know," and "like". Occasional vocalized pauses are generally ignored by listeners. However, when used excessively, vocalized pauses can give others the impression that we are unsure of ourselves or that our ideas are not well thought out. Sometimes speakers use so many vocalized pauses that listeners are distracted by them to the point of not being able to concentrate on the meaning of the message.</p>
+
+</div>
+
+<div class="card">
+<h2>Answer 2: Situation Analysis</h2>
+
+<h3>Physical Appearance</h3>
+<p>Physical appearance refers to how we look to others, including clothing, grooming, and personal artifacts, which sends strong nonverbal messages. It is one of the first things an audience notices and strongly influences their initial perception of the speaker's credibility. Mr. Ali made a significant mistake by wearing a fatua, khakis, and sandals to a formal event hosted by Entrepreneurs BD United. Since he was speaking on "Starting a Business," his casual attire undermined his professional authority. He should have worn formal business attire to convey respect for the occasion and establish immediate credibility.</p>
+
+<h3>Proxemics</h3>
+<p>Proxemics is the study of how people use spatial cues, including physical distance and space, to communicate meaning. The distance a speaker maintains from the audience and their use of the stage can either create a sense of engagement or a barrier of formality. Mr. Ali's decision to stand statically behind a lectern for the entirety of his speech was an error. The lectern acted as a physical barrier, making him appear distant and unapproachable. He should have stepped away from the lectern and moved naturally around the stage to foster a stronger connection with his listeners.</p>
+
+<h3>Scripted Speeches vs. Extemporaneous Speeches</h3>
+<p>A scripted speech is written out entirely and read word-for-word, whereas an extemporaneous speech is planned and rehearsed but delivered using only a brief outline. Scripted speeches often sound mechanical and limit eye contact, while extemporaneous delivery sounds conversational and allows for audience adaptation. Mr. Ali wrongly chose to read a scripted speech, which caused him to fumble and fail to connect. Since he had a month's notice, he should have prepared an outline and practiced an extemporaneous delivery. This approach would have allowed him to maintain eye contact and speak more naturally.</p>
+
+<h3>Icebreaking</h3>
+<p>Icebreaking refers to the introductory techniques used at the beginning of a speech to capture the audience's attention and establish immediate rapport. Effective icebreakers, such as a relevant story or a thoughtful greeting, set a welcoming tone and help the audience transition into listening mode. Mr. Ali completely failed here by going straight into his speech without acknowledging the audience. This abrupt start prevented him from building any goodwill. He should have started with a strong icebreaker, perhaps a brief personal anecdote about his early days as a businessman, to draw the audience in.</p>
+
+<h3>Q&A</h3>
+<p>A Q&A (Question and Answer) session is a designated time where the audience can seek clarification or further information from the speaker. Handling questions respectfully involves listening carefully, answering honestly without being defensive, and managing time efficiently. Mr. Ali missed this opportunity entirely by leaving without acknowledging the audience. He should have gracefully concluded and invited questions. If an audience member asked, "What is the biggest challenge in finding funding?", he should respectfully share his practical advice. If faced with a skeptical question like, "Isn't starting a business too risky right now?", he must remain calm, validate their concern, and politely explain his strategies for risk management.</p>
+
+</div>
+
+</div>
+
+<script>
+// Font size management
+const fontSizes = ['font-small', 'font-medium', 'font-large', 'font-xlarge', 'font-xxlarge'];
+let currentFontIndex = 1; // Start at medium
+
+function updateFontDisplay() {
+    document.getElementById('fontLevel').textContent = currentFontIndex + 1;
+}
+
+function increaseFont() {
+    if (currentFontIndex < fontSizes.length - 1) {
+        document.body.classList.remove(fontSizes[currentFontIndex]);
+        currentFontIndex++;
+        document.body.classList.add(fontSizes[currentFontIndex]);
+        updateFontDisplay();
+        savePreferences();
+    }
+}
+
+function decreaseFont() {
+    if (currentFontIndex > 0) {
+        document.body.classList.remove(fontSizes[currentFontIndex]);
+        currentFontIndex--;
+        document.body.classList.add(fontSizes[currentFontIndex]);
+        updateFontDisplay();
+        savePreferences();
+    }
+}
+
+// Theme management
+function setTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+
+    // Update active button state
+    document.querySelectorAll('.theme-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    document.querySelector(`[data-theme-btn="${theme}"]`).classList.add('active');
+    savePreferences();
+}
+
+// Save/Load preferences
+function savePreferences() {
+    const prefs = {
+        fontIndex: currentFontIndex,
+        theme: document.documentElement.getAttribute('data-theme') || 'light'
+    };
+    localStorage.setItem('readingPrefs', JSON.stringify(prefs));
+}
+
+function loadPreferences() {
+    try {
+        const prefs = JSON.parse(localStorage.getItem('readingPrefs'));
+        if (prefs) {
+            // Restore font size
+            document.body.classList.remove(fontSizes[currentFontIndex]);
+            currentFontIndex = prefs.fontIndex || 1;
+            document.body.classList.add(fontSizes[currentFontIndex]);
+            updateFontDisplay();
+
+            // Restore theme
+            if (prefs.theme) {
+                setTheme(prefs.theme);
+            }
+        }
+    } catch (e) {
+        // Use defaults if localStorage fails
+    }
+}
+
+// Initialize on page load
+loadPreferences();
+</script>
+
+</body>
+</html>
